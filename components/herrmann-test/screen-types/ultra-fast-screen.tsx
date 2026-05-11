@@ -64,7 +64,7 @@ export function UltraFastScreen({
             >
               {/* Thumbnail — small, on the left */}
               <div className={cn(
-                "relative shrink-0 rounded-xl overflow-hidden bg-secondary/50",
+                "relative shrink-0 rounded-xl overflow-hidden bg-transparent",
                 "w-16 h-16"
               )}>
                 <Image

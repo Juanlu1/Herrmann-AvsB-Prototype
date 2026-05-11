@@ -41,7 +41,7 @@ export function OptionCard({
         {label}
       </span>
 
-      <div className="relative w-full aspect-square max-w-[130px] md:max-w-[200px] mb-2 md:mb-4 rounded-2xl overflow-hidden bg-secondary/50">
+      <div className="relative w-full aspect-square max-w-[130px] md:max-w-[200px] mb-2 md:mb-4 rounded-2xl overflow-hidden bg-transparent">
         <Image
           src={imageSrc}
           alt={text}

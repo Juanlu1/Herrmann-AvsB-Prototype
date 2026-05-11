@@ -68,7 +68,7 @@ export function ComparativeScreen({
             Opción A
           </span>
 
-          <div className="relative w-full h-24 md:aspect-video md:h-auto rounded-2xl overflow-hidden bg-secondary/50">
+          <div className="relative w-full h-24 md:aspect-video md:h-auto rounded-2xl overflow-hidden bg-transparent">
             <Image
               src={`/images/q${question.id}-a.jpg`}
               alt={question.optionA.text}
@@ -133,7 +133,7 @@ export function ComparativeScreen({
             Opción B
           </span>
 
-          <div className="relative w-full h-24 md:aspect-video md:h-auto rounded-2xl overflow-hidden bg-secondary/50">
+          <div className="relative w-full h-24 md:aspect-video md:h-auto rounded-2xl overflow-hidden bg-transparent">
             <Image
               src={`/images/q${question.id}-b.jpg`}
               alt={question.optionB.text}
