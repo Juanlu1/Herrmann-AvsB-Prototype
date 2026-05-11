@@ -21,117 +21,82 @@ export function UltraFastScreen({
   return (
     <motion.div
       key={question.id}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.25 }}
-      className="w-full max-w-2xl mx-auto px-4"
+      // Snaps in instantly — no slide, no slow fade
+      initial={{ opacity: 0, scale: 0.97 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0, scale: 0.97 }}
+      transition={{ duration: 0.15, ease: "easeOut" }}
+      className="w-full max-w-lg mx-auto px-4"
     >
-      {/* Compact question header */}
-      <motion.div
-        initial={{ opacity: 0, y: -10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.05, duration: 0.2 }}
-        className="text-center mb-6"
-      >
-        <span className="text-xs text-muted-foreground mb-2 block">
-          {questionNumber}
-        </span>
-        <h2 className="text-xl md:text-2xl font-semibold text-foreground">
-          {question.context}
-        </h2>
-      </motion.div>
-
-      {/* Fast-paced option cards in compact layout */}
-      <motion.div
+      {/* Question: small, plain, no ceremony */}
+      <motion.p
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 0.1, staggerChildren: 0.08, delayChildren: 0.1 }}
-        className="grid grid-cols-2 gap-3 md:gap-4"
+        transition={{ delay: 0.05, duration: 0.15 }}
+        className="text-center text-base font-medium text-foreground mb-6"
       >
-        {/* Option A - Compact card */}
-        <motion.button
-          key="option-a"
-          initial={{ scale: 0.9, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          whileHover={{ scale: selectedOption === 'B' ? 1 : 1.03 }}
-          whileTap={{ scale: 0.97 }}
-          onClick={() => onSelect('A')}
-          className={cn(
-            "relative flex flex-col items-center p-3 md:p-4 rounded-2xl transition-all duration-200 cursor-pointer",
-            "bg-card/70 backdrop-blur-sm border-2 shadow-md",
-            selectedOption === 'A' && "border-primary shadow-primary/25 shadow-lg ring-2 ring-primary/20",
-            !selectedOption && !selectedOption && "border-border/40 hover:border-primary/40",
-            selectedOption === 'B' && "opacity-35 border-border/20"
-          )}
-        >
-          <span className={cn(
-            "absolute top-2 left-2 w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold",
-            selectedOption === 'A' ? "bg-primary text-primary-foreground" : "bg-secondary text-muted-foreground"
-          )}>
-            A
-          </span>
+        {question.context}
+      </motion.p>
 
-          <div className="relative w-full aspect-square max-w-[120px] mb-2 rounded-xl overflow-hidden bg-secondary/50">
-            <Image
-              src={`/images/q${question.id}-a.jpg`}
-              alt={question.optionA.text}
-              fill
-              className="object-cover"
-              sizes="(max-width: 768px) 35vw, 120px"
-            />
-          </div>
+      {/* Two tall tappable strips — stacked vertically on all sizes */}
+      <div className="flex flex-col gap-3">
+        {(["A", "B"] as const).map((opt, i) => {
+          const isThis = selectedOption === opt
+          const isOther = selectedOption === (opt === "A" ? "B" : "A")
+          const option = opt === "A" ? question.optionA : question.optionB
+          return (
+            <motion.button
+              key={opt}
+              initial={{ opacity: 0, x: i === 0 ? -12 : 12 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.08 + i * 0.06, duration: 0.15 }}
+              whileHover={!selectedOption ? { x: 4 } : {}}
+              whileTap={{ scale: 0.98 }}
+              onClick={() => onSelect(opt)}
+              className={cn(
+                "relative flex items-center gap-4 px-4 py-3 rounded-2xl",
+                "border-2 transition-all duration-150 cursor-pointer text-left",
+                "bg-card/80 backdrop-blur-sm",
+                isThis && "border-primary shadow-md shadow-primary/20 ring-1 ring-primary/20",
+                !selectedOption && "border-border/40 hover:border-primary/50 hover:shadow-md",
+                isOther && "opacity-30 border-border/20"
+              )}
+            >
+              {/* Thumbnail — small, on the left */}
+              <div className={cn(
+                "relative shrink-0 rounded-xl overflow-hidden bg-secondary/50",
+                "w-14 h-14"
+              )}>
+                <Image
+                  src={`/images/q${question.id}-${opt.toLowerCase()}.jpg`}
+                  alt={option.text}
+                  fill
+                  className="object-cover"
+                  sizes="56px"
+                />
+              </div>
 
-          <p className={cn(
-            "text-xs md:text-sm text-center leading-tight",
-            selectedOption === 'A' ? "text-foreground font-medium" : "text-muted-foreground/80"
-          )}>
-            {question.optionA.text}
-          </p>
-        </motion.button>
+              {/* Text */}
+              <p className={cn(
+                "text-sm leading-snug flex-1",
+                isThis ? "text-foreground font-medium" : "text-muted-foreground"
+              )}>
+                {option.text}
+              </p>
 
-        {/* Option B - Compact card */}
-        <motion.button
-          key="option-b"
-          initial={{ scale: 0.9, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ delay: 0.08 }}
-          whileHover={{ scale: selectedOption === 'A' ? 1 : 1.03 }}
-          whileTap={{ scale: 0.97 }}
-          onClick={() => onSelect('B')}
-          className={cn(
-            "relative flex flex-col items-center p-3 md:p-4 rounded-2xl transition-all duration-200 cursor-pointer",
-            "bg-card/70 backdrop-blur-sm border-2 shadow-md",
-            selectedOption === 'B' && "border-primary shadow-primary/25 shadow-lg ring-2 ring-primary/20",
-            !selectedOption && "border-border/40 hover:border-primary/40",
-            selectedOption === 'A' && "opacity-35 border-border/20"
-          )}
-        >
-          <span className={cn(
-            "absolute top-2 left-2 w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold",
-            selectedOption === 'B' ? "bg-primary text-primary-foreground" : "bg-secondary text-muted-foreground"
-          )}>
-            B
-          </span>
-
-          <div className="relative w-full aspect-square max-w-[120px] mb-2 rounded-xl overflow-hidden bg-secondary/50">
-            <Image
-              src={`/images/q${question.id}-b.jpg`}
-              alt={question.optionB.text}
-              fill
-              className="object-cover"
-              sizes="(max-width: 768px) 35vw, 120px"
-            />
-          </div>
-
-          <p className={cn(
-            "text-xs md:text-sm text-center leading-tight",
-            selectedOption === 'B' ? "text-foreground font-medium" : "text-muted-foreground/80"
-          )}>
-            {question.optionB.text}
-          </p>
-        </motion.button>
-      </motion.div>
+              {/* Label pill — right side */}
+              <span className={cn(
+                "shrink-0 w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold",
+                isThis
+                  ? "bg-primary text-primary-foreground"
+                  : "bg-secondary text-muted-foreground"
+              )}>
+                {opt}
+              </span>
+            </motion.button>
+          )
+        })}
+      </div>
     </motion.div>
   )
 }

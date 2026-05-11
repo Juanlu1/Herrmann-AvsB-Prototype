@@ -20,35 +20,35 @@ export function NarrativeScreen({
   return (
     <motion.div
       key={question.id}
-      initial={{ opacity: 0, x: 50 }}
-      animate={{ opacity: 1, x: 0 }}
-      exit={{ opacity: 0, x: -50 }}
-      transition={{ duration: 0.4 }}
-      className="w-full max-w-4xl mx-auto px-4"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.5, ease: "easeInOut" }}
+      className="w-full max-w-3xl mx-auto px-4"
     >
-      {/* Immersive context section with larger spacing */}
+      {/* Context: large, centered, breathes before options appear */}
       <motion.div
-        initial={{ opacity: 0, y: -20 }}
+        initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.15, duration: 0.3 }}
-        className="text-center mb-12 md:mb-16"
+        transition={{ delay: 0.2, duration: 0.5, ease: "easeOut" }}
+        className="text-center mb-14"
       >
-        <span className="text-xs md:text-sm text-muted-foreground/70 mb-4 block uppercase tracking-widest">
-          Pregunta {questionNumber}
+        <span className="text-xs text-muted-foreground/50 mb-5 block uppercase tracking-[0.2em]">
+          {questionNumber} de 34
         </span>
-        <h2 className="text-3xl md:text-4xl font-semibold text-foreground italic leading-relaxed max-w-2xl mx-auto">
+        <h2 className="text-3xl md:text-4xl font-semibold text-foreground italic leading-relaxed tracking-tight max-w-xl mx-auto text-balance">
           {question.context}
         </h2>
       </motion.div>
 
-      {/* Options with reflective spacing */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.25 }}
-        className="flex flex-col md:flex-row items-stretch gap-6 md:gap-8"
-      >
-        <div className="flex-1">
+      {/* Options: staggered in slowly, one after the other */}
+      <div className="flex flex-col md:flex-row items-stretch gap-6 md:gap-10">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5, duration: 0.4, ease: "easeOut" }}
+          className="flex-1"
+        >
           <OptionCard
             text={question.optionA.text}
             imageSrc={`/images/q${question.id}-a.jpg`}
@@ -57,21 +57,25 @@ export function NarrativeScreen({
             onClick={() => onSelect('A')}
             label="A"
           />
-        </div>
+        </motion.div>
 
-        {/* "O" separator with atmospheric styling */}
         <motion.div
-          initial={{ scale: 0 }}
-          animate={{ scale: 1 }}
-          transition={{ delay: 0.3, duration: 0.2 }}
-          className="flex items-center justify-center py-4 md:py-0"
+          initial={{ opacity: 0, scale: 0.7 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.65, duration: 0.3, ease: "easeOut" }}
+          className="flex items-center justify-center py-2 md:py-0"
         >
-          <div className="w-14 h-14 rounded-full bg-gradient-to-br from-accent/60 to-accent/40 backdrop-blur-sm flex items-center justify-center shadow-xl border border-border/40">
-            <span className="text-xl font-light text-accent-foreground/80">O</span>
+          <div className="w-12 h-12 rounded-full bg-accent/60 flex items-center justify-center border border-border/30">
+            <span className="text-base font-light text-accent-foreground/70">o</span>
           </div>
         </motion.div>
 
-        <div className="flex-1">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.7, duration: 0.4, ease: "easeOut" }}
+          className="flex-1"
+        >
           <OptionCard
             text={question.optionB.text}
             imageSrc={`/images/q${question.id}-b.jpg`}
@@ -80,8 +84,8 @@ export function NarrativeScreen({
             onClick={() => onSelect('B')}
             label="B"
           />
-        </div>
-      </motion.div>
+        </motion.div>
+      </div>
     </motion.div>
   )
 }
