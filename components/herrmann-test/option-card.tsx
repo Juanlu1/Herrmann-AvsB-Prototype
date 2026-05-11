@@ -52,7 +52,7 @@ export function OptionCard({
       </div>
 
       <p className={cn(
-        "text-sm md:text-base text-left leading-relaxed",
+        "text-sm md:text-base text-center leading-relaxed",
         isSelected ? "text-foreground font-medium" : "text-muted-foreground"
       )}>
         {text}
