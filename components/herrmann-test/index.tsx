@@ -65,6 +65,7 @@ export function HerrmannTest() {
       const existingAnswer = answers.find(a => a.questionId === nextQuestion?.id)
       setSelectedOption(existingAnswer?.choice || null)
       setActivityCompleted(false)
+      window.scrollTo({ top: 0 })
     } else {
       setTestCompleted(true)
     }
@@ -79,6 +80,7 @@ export function HerrmannTest() {
       const prevQuestion = shuffledQuestions[currentIndex - 1]
       const existingAnswer = answers.find(a => a.questionId === prevQuestion?.id)
       setSelectedOption(existingAnswer?.choice || null)
+      window.scrollTo({ top: 0 })
     }
   }, [currentIndex, shuffledQuestions, answers])
 
@@ -145,28 +147,26 @@ export function HerrmannTest() {
   }
 
   return (
-    <div className="h-dvh flex flex-col">
-      <div className="px-4 pt-6 md:pt-8 pb-4 shrink-0">
+    <div className="pb-20">
+      <div className="px-4 pt-6 md:pt-8 pb-4">
         <ProgressBar current={currentIndex + 1} total={totalQuestions} />
       </div>
 
-      <div className="flex-1 min-h-0 overflow-y-auto py-2">
-        <AnimatePresence mode="wait">
-          <QuestionCard
-            key={currentQuestion?.id}
-            question={currentQuestion}
-            selectedOption={selectedOption}
-            onSelect={handleSelect}
-            questionNumber={currentIndex + 1}
-          />
-        </AnimatePresence>
-      </div>
+      <AnimatePresence mode="wait">
+        <QuestionCard
+          key={currentQuestion?.id}
+          question={currentQuestion}
+          selectedOption={selectedOption}
+          onSelect={handleSelect}
+          questionNumber={currentIndex + 1}
+        />
+      </AnimatePresence>
 
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2 }}
-        className="flex justify-center px-4 py-4 shrink-0"
+        className="fixed bottom-0 left-0 right-0 flex justify-center px-4 py-4"
       >
         <Button
           variant="outline"

@@ -79,7 +79,7 @@ export function ComparativeScreen({
           </div>
 
           <p className={cn(
-            "text-sm md:text-base leading-relaxed",
+            "text-sm md:text-base leading-relaxed text-center",
             selectedOption === 'A' ? "text-foreground font-medium" : "text-muted-foreground"
           )}>
             {question.optionA.text}
@@ -144,7 +144,7 @@ export function ComparativeScreen({
           </div>
 
           <p className={cn(
-            "text-sm md:text-base leading-relaxed",
+            "text-sm md:text-base leading-relaxed text-center",
             selectedOption === 'B' ? "text-foreground font-medium" : "text-muted-foreground"
           )}>
             {question.optionB.text}

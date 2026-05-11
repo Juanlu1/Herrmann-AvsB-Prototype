@@ -33,16 +33,13 @@ export function NarrativeScreen({
         transition={{ delay: 0.2, duration: 0.5, ease: "easeOut" }}
         className="text-center mb-3 md:mb-14"
       >
-        <span className="text-xs text-muted-foreground/50 mb-5 block uppercase tracking-[0.2em]">
-          {questionNumber} de 34
-        </span>
         <h2 className="text-2xl md:text-4xl font-semibold text-foreground italic leading-relaxed tracking-tight max-w-xl mx-auto text-balance">
           {question.context}
         </h2>
       </motion.div>
 
       {/* Options: staggered in slowly, one after the other */}
-      <div className="flex flex-col md:flex-row items-stretch gap-6 md:gap-10">
+      <div className="flex flex-col md:flex-row items-stretch gap-2 md:gap-8">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
