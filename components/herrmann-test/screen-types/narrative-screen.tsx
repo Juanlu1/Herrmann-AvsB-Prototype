@@ -31,12 +31,12 @@ export function NarrativeScreen({
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2, duration: 0.5, ease: "easeOut" }}
-        className="text-center mb-14"
+        className="text-center mb-3 md:mb-14"
       >
         <span className="text-xs text-muted-foreground/50 mb-5 block uppercase tracking-[0.2em]">
           {questionNumber} de 34
         </span>
-        <h2 className="text-3xl md:text-4xl font-semibold text-foreground italic leading-relaxed tracking-tight max-w-xl mx-auto text-balance">
+        <h2 className="text-2xl md:text-4xl font-semibold text-foreground italic leading-relaxed tracking-tight max-w-xl mx-auto text-balance">
           {question.context}
         </h2>
       </motion.div>

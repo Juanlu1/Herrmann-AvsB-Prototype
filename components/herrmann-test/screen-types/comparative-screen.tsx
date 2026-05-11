@@ -32,7 +32,7 @@ export function ComparativeScreen({
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.1, duration: 0.3 }}
-        className="text-center mb-8"
+        className="text-center mb-3 md:mb-8"
       >
         <h2 className="text-2xl md:text-3xl font-semibold text-foreground max-w-2xl mx-auto text-balance">
           {question.context}
@@ -51,7 +51,7 @@ export function ComparativeScreen({
           whileTap={{ scale: 0.99 }}
           onClick={() => onSelect('A')}
           className={cn(
-            "relative flex flex-col gap-4 p-6 rounded-3xl md:rounded-r-none md:rounded-l-3xl",
+            "relative flex flex-col gap-2 p-3 md:gap-4 md:p-6 rounded-3xl md:rounded-r-none md:rounded-l-3xl",
             "border-2 transition-all duration-250 cursor-pointer text-left",
             "bg-card/80 backdrop-blur-sm",
             selectedOption === 'A' && "border-primary ring-2 ring-primary/20 shadow-xl shadow-primary/15",
@@ -68,12 +68,12 @@ export function ComparativeScreen({
             Opción A
           </span>
 
-          <div className="relative w-full aspect-video rounded-2xl overflow-hidden bg-secondary/50">
+          <div className="relative w-full h-24 md:aspect-video md:h-auto rounded-2xl overflow-hidden bg-secondary/50">
             <Image
               src={`/images/q${question.id}-a.jpg`}
               alt={question.optionA.text}
               fill
-              className="object-cover"
+              className="object-contain"
               sizes="(max-width: 768px) 90vw, 40vw"
             />
           </div>
@@ -116,7 +116,7 @@ export function ComparativeScreen({
           whileTap={{ scale: 0.99 }}
           onClick={() => onSelect('B')}
           className={cn(
-            "relative flex flex-col gap-4 p-6 rounded-3xl md:rounded-l-none md:rounded-r-3xl",
+            "relative flex flex-col gap-2 p-3 md:gap-4 md:p-6 rounded-3xl md:rounded-l-none md:rounded-r-3xl",
             "border-2 transition-all duration-250 cursor-pointer text-left",
             "bg-card/80 backdrop-blur-sm",
             selectedOption === 'B' && "border-primary ring-2 ring-primary/20 shadow-xl shadow-primary/15",
@@ -133,12 +133,12 @@ export function ComparativeScreen({
             Opción B
           </span>
 
-          <div className="relative w-full aspect-video rounded-2xl overflow-hidden bg-secondary/50">
+          <div className="relative w-full h-24 md:aspect-video md:h-auto rounded-2xl overflow-hidden bg-secondary/50">
             <Image
               src={`/images/q${question.id}-b.jpg`}
               alt={question.optionB.text}
               fill
-              className="object-cover"
+              className="object-contain"
               sizes="(max-width: 768px) 90vw, 40vw"
             />
           </div>

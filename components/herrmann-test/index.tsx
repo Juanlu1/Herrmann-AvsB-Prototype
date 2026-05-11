@@ -3,7 +3,7 @@
 import { useState, useCallback } from "react"
 import { AnimatePresence, motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
-import { ChevronLeft, ChevronRight } from "lucide-react"
+import { ChevronLeft } from "lucide-react"
 import { IntroScreen } from "./intro-screen"
 import { ProgressBar } from "./progress-bar"
 import { QuestionCard } from "./question-card"
@@ -37,24 +37,22 @@ export function HerrmannTest() {
   }, [])
 
   const handleSelect = useCallback((option: 'A' | 'B') => {
+    if (!currentQuestion) return
+
     setSelectedOption(option)
-  }, [])
 
-  const handleNext = useCallback(() => {
-    if (!selectedOption || !currentQuestion) return
-
-    const quadrant = selectedOption === 'A'
+    const quadrant = option === 'A'
       ? currentQuestion.optionA.quadrant
       : currentQuestion.optionB.quadrant
 
     setAnswers(prev => {
       const filtered = prev.filter(a => a.questionId !== currentQuestion.id)
-      return [...filtered, { questionId: currentQuestion.id, choice: selectedOption, quadrant }]
+      return [...filtered, { questionId: currentQuestion.id, choice: option, quadrant }]
     })
 
     const activityShouldTrigger = currentQuestion.hasActivity &&
       !activityCompleted &&
-      (!currentQuestion.activityOption || selectedOption === currentQuestion.activityOption)
+      (!currentQuestion.activityOption || option === currentQuestion.activityOption)
 
     if (activityShouldTrigger) {
       setShowActivity(true)
@@ -70,7 +68,7 @@ export function HerrmannTest() {
     } else {
       setTestCompleted(true)
     }
-  }, [selectedOption, currentQuestion, currentIndex, totalQuestions, activityCompleted, shuffledQuestions, answers])
+  }, [currentQuestion, currentIndex, totalQuestions, activityCompleted, shuffledQuestions, answers])
 
   const handlePrevious = useCallback(() => {
     if (currentIndex > 0) {
@@ -147,26 +145,28 @@ export function HerrmannTest() {
   }
 
   return (
-    <div className="min-h-screen py-6 md:py-8">
-      <div className="px-4 mb-8">
+    <div className="h-dvh flex flex-col">
+      <div className="px-4 pt-6 md:pt-8 pb-4 shrink-0">
         <ProgressBar current={currentIndex + 1} total={totalQuestions} />
       </div>
 
-      <AnimatePresence mode="wait">
-        <QuestionCard
-          key={currentQuestion?.id}
-          question={currentQuestion}
-          selectedOption={selectedOption}
-          onSelect={handleSelect}
-          questionNumber={currentIndex + 1}
-        />
-      </AnimatePresence>
+      <div className="flex-1 min-h-0 overflow-y-auto py-2">
+        <AnimatePresence mode="wait">
+          <QuestionCard
+            key={currentQuestion?.id}
+            question={currentQuestion}
+            selectedOption={selectedOption}
+            onSelect={handleSelect}
+            questionNumber={currentIndex + 1}
+          />
+        </AnimatePresence>
+      </div>
 
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2 }}
-        className="flex justify-center gap-4 mt-8 px-4"
+        className="flex justify-center px-4 py-4 shrink-0"
       >
         <Button
           variant="outline"
@@ -177,16 +177,6 @@ export function HerrmannTest() {
         >
           <ChevronLeft className="w-5 h-5 mr-1" />
           Anterior
-        </Button>
-
-        <Button
-          size="lg"
-          onClick={handleNext}
-          disabled={!selectedOption}
-          className="rounded-full px-6 bg-primary hover:bg-primary/90"
-        >
-          Siguiente
-          <ChevronRight className="w-5 h-5 ml-1" />
         </Button>
       </motion.div>
     </div>

@@ -26,7 +26,7 @@ export function UltraFastScreen({
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0.97 }}
       transition={{ duration: 0.15, ease: "easeOut" }}
-      className="w-full max-w-lg mx-auto px-4"
+      className="w-full max-w-xl mx-auto px-4"
     >
       {/* Question: small, plain, no ceremony */}
       <motion.p
@@ -65,14 +65,14 @@ export function UltraFastScreen({
               {/* Thumbnail — small, on the left */}
               <div className={cn(
                 "relative shrink-0 rounded-xl overflow-hidden bg-secondary/50",
-                "w-14 h-14"
+                "w-16 h-16"
               )}>
                 <Image
                   src={`/images/q${question.id}-${opt.toLowerCase()}.jpg`}
                   alt={option.text}
                   fill
                   className="object-cover"
-                  sizes="56px"
+                  sizes="64px"
                 />
               </div>
 
