@@ -11,12 +11,6 @@ import { ResultsScreen } from "./results-screen"
 import { ActivityWrapper } from "./activities"
 import { questions, shuffleQuestions } from "@/lib/questions"
 import type { Answer, Question } from "@/lib/herrmann-types"
-import {MusicMixer} from "@/components/herrmann-test/activities/music-mixer";
-import {DrawingCanvas} from "@/components/herrmann-test/activities/drawing-canvas";
-import {PuzzleGame} from "@/components/herrmann-test/activities/puzzle-game";
-import {RoomArranger} from "@/components/herrmann-test/activities/room-arranger";
-import {PackingGame} from "@/components/herrmann-test/activities/packing-game";
-import {MorningRoutine} from "@/components/herrmann-test/activities/morning-routine";
 
 export function HerrmannTest() {
   const [testStarted, setTestStarted] = useState(false)
@@ -35,7 +29,7 @@ export function HerrmannTest() {
   const defaultQuestionsUntilActivity = 5; // Una actividad cada 6 preguntas
   const [questionsUntilActivity, setQuestionsUntilActivity] = useState(defaultQuestionsUntilActivity)
 
-  const activitiesList = ['drawing-canvas', 'puzzle', 'room-arranger', 'packing', 'morning-routine', 'task-assigner']
+  const activitiesList = ['blocks', 'drawing-canvas', 'puzzle', 'room-arranger', 'packing', 'morning-routine', 'task-assigner']
 
   //
 
@@ -92,6 +86,7 @@ export function HerrmannTest() {
       setShowActivity(false)
       setActivityCompleted(false)
       setCurrentIndex(prev => prev - 1)
+      setQuestionsUntilActivity(questionsUntilActivity + 1)
 
       const prevQuestion = shuffledQuestions[currentIndex - 1]
       const existingAnswer = answers.find(a => a.questionId === prevQuestion?.id)
@@ -118,6 +113,7 @@ export function HerrmannTest() {
   const handleSkipActivity = useCallback(() => {
     setShowActivity(false)
     setActivityCompleted(true)
+    setQuestionsUntilActivity(defaultQuestionsUntilActivity)
 
     if (currentIndex < totalQuestions - 1) {
       setCurrentIndex(prev => prev + 1)
@@ -141,6 +137,7 @@ export function HerrmannTest() {
     setActivityCompleted(false)
     setNombre("")
     setApellido("")
+    setQuestionsUntilActivity(defaultQuestionsUntilActivity)
   }, [])
 
   if (!testStarted) {

@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
-import { MusicMixer } from "./music-mixer"
+import { Blocks } from "./blocks"
 import { DrawingCanvas } from "./drawing-canvas"
 import { PuzzleGame } from "./puzzle-game"
 import { RoomArranger } from "./room-arranger"
@@ -23,8 +23,8 @@ export function ActivityWrapper({
 }: ActivityWrapperProps) {
   const renderActivity = () => {
     switch (activityType) {
-      case 'music-mixer':
-        return <MusicMixer selectedOption={'A'} onComplete={onComplete} />
+      case 'blocks':
+        return <Blocks onComplete={onComplete} />
       case 'drawing-canvas':
         return <DrawingCanvas onComplete={onComplete} />
       case 'puzzle':
