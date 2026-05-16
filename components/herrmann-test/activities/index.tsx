@@ -12,33 +12,31 @@ import { TaskAssigner } from "./task-assigner"
 
 interface ActivityWrapperProps {
   activityType: string
-  selectedOption: 'A' | 'B'
   onComplete: () => void
   onSkip: () => void
 }
 
 export function ActivityWrapper({
   activityType,
-  selectedOption,
   onComplete,
   onSkip
 }: ActivityWrapperProps) {
   const renderActivity = () => {
     switch (activityType) {
       case 'music-mixer':
-        return <MusicMixer selectedOption={selectedOption} onComplete={onComplete} />
+        return <MusicMixer selectedOption={'A'} onComplete={onComplete} />
       case 'drawing-canvas':
         return <DrawingCanvas onComplete={onComplete} />
       case 'puzzle':
         return <PuzzleGame onComplete={onComplete} />
       case 'room-arranger':
-        return <RoomArranger selectedOption={selectedOption} onComplete={onComplete} />
+        return <RoomArranger selectedOption={'A'} onComplete={onComplete} />
       case 'packing':
-        return <PackingGame selectedOption={selectedOption} onComplete={onComplete} />
+        return <PackingGame selectedOption={'A'} onComplete={onComplete} />
       case 'morning-routine':
-        return <MorningRoutine selectedOption={selectedOption} onComplete={onComplete} />
+        return <MorningRoutine selectedOption={'A'} onComplete={onComplete} />
       case 'task-assigner':
-        return <TaskAssigner selectedOption={selectedOption} onComplete={onComplete} />
+        return <TaskAssigner selectedOption={'A'} onComplete={onComplete} />
       default:
         return null
     }

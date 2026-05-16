@@ -11,6 +11,12 @@ import { ResultsScreen } from "./results-screen"
 import { ActivityWrapper } from "./activities"
 import { questions, shuffleQuestions } from "@/lib/questions"
 import type { Answer, Question } from "@/lib/herrmann-types"
+import {MusicMixer} from "@/components/herrmann-test/activities/music-mixer";
+import {DrawingCanvas} from "@/components/herrmann-test/activities/drawing-canvas";
+import {PuzzleGame} from "@/components/herrmann-test/activities/puzzle-game";
+import {RoomArranger} from "@/components/herrmann-test/activities/room-arranger";
+import {PackingGame} from "@/components/herrmann-test/activities/packing-game";
+import {MorningRoutine} from "@/components/herrmann-test/activities/morning-routine";
 
 export function HerrmannTest() {
   const [testStarted, setTestStarted] = useState(false)
@@ -23,6 +29,15 @@ export function HerrmannTest() {
   const [activityCompleted, setActivityCompleted] = useState(false)
   const [nombre, setNombre] = useState("")
   const [apellido, setApellido] = useState("")
+
+  // MINIJUEGOS
+
+  const defaultQuestionsUntilActivity = 5; // Una actividad cada 6 preguntas
+  const [questionsUntilActivity, setQuestionsUntilActivity] = useState(defaultQuestionsUntilActivity)
+
+  const activitiesList = ['drawing-canvas', 'puzzle', 'room-arranger', 'packing', 'morning-routine', 'task-assigner']
+
+  //
 
   const currentQuestion = shuffledQuestions[currentIndex]
   const totalQuestions = shuffledQuestions.length
@@ -50,12 +65,13 @@ export function HerrmannTest() {
       return [...filtered, { questionId: currentQuestion.id, choice: option, quadrant }]
     })
 
-    const activityShouldTrigger = currentQuestion.hasActivity &&
-      !activityCompleted &&
-      (!currentQuestion.activityOption || option === currentQuestion.activityOption)
+    setQuestionsUntilActivity(questionsUntilActivity - 1)
+
+    const activityShouldTrigger = questionsUntilActivity == 0
 
     if (activityShouldTrigger) {
       setShowActivity(true)
+      setQuestionsUntilActivity(defaultQuestionsUntilActivity)
       return
     }
 
@@ -135,11 +151,11 @@ export function HerrmannTest() {
     return <ResultsScreen nombre={nombre} apellido={apellido} answers={answers} onRestart={handleRestart} />
   }
 
-  if (showActivity && currentQuestion?.hasActivity) {
+  // Render an activity
+  if (showActivity) {
     return (
       <ActivityWrapper
-        activityType={currentQuestion.activityType!}
-        selectedOption={selectedOption!}
+        activityType={activitiesList[0]}
         onComplete={handleActivityComplete}
         onSkip={handleSkipActivity}
       />

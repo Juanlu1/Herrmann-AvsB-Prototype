@@ -13,8 +13,6 @@ export const questions: Question[] = [
     context: "Escuchando música...",
     optionA: { text: "Ordeno mi playlist por géneros, artistas o momentos del día", quadrant: 'B' },
     optionB: { text: "Armo una playlist mezclando canciones que en teoría no van juntas y veo si funciona", quadrant: 'D' },
-    hasActivity: true,
-    activityType: 'music-mixer',
     screenType: 'ultra-fast'
   },
   {
@@ -36,9 +34,6 @@ export const questions: Question[] = [
     context: "Cuando tengo tiempo libre en casa...",
     optionA: { text: "Me pongo a dibujar o garabatear sin ningún objetivo", quadrant: 'D' },
     optionB: { text: "Armo un horario para la semana y dejo todo ordenado antes de que empiece", quadrant: 'B' },
-    hasActivity: true,
-    activityType: 'drawing-canvas',
-    activityOption: 'A',
     screenType: 'ultra-fast'
   },
   {
@@ -46,9 +41,6 @@ export const questions: Question[] = [
     context: "Para entretenerme...",
     optionA: { text: "Resuelvo un acertijo o juego de lógica hasta llegar a la respuesta exacta", quadrant: 'A' },
     optionB: { text: "Ayudo a un amigo a pensar qué hacer con un problema que le está comiendo la cabeza", quadrant: 'C' },
-    hasActivity: true,
-    activityType: 'puzzle',
-    activityOption: 'A',
     screenType: 'comparative'
   },
   {
@@ -70,8 +62,6 @@ export const questions: Question[] = [
     context: "Cuando mi cuarto me cansa...",
     optionA: { text: "Muevo muebles y objetos para que se sienta diferente", quadrant: 'D' },
     optionB: { text: "Ordeno todo hasta que cada cosa tenga un lugar lógico y definido", quadrant: 'B' },
-    hasActivity: true,
-    activityType: 'room-arranger',
     screenType: 'comparative'
   },
   {
@@ -184,8 +174,6 @@ export const questions: Question[] = [
     context: "Cuando me voy de viaje...",
     optionA: { text: "Hago una lista de todo lo que necesito y lo voy tachando mientras empaco", quadrant: 'B' },
     optionB: { text: "Empaco a ojo y consigo lo que me falte cuando llego", quadrant: 'D' },
-    hasActivity: true,
-    activityType: 'packing',
     screenType: 'narrative'
   },
   {
@@ -221,8 +209,6 @@ export const questions: Question[] = [
     context: "Para empezar el día...",
     optionA: { text: "Sigo siempre la misma rutina y que todo esté en orden", quadrant: 'B' },
     optionB: { text: "Arranco según cómo me siento o lo que se me ocurra ese día", quadrant: 'D' },
-    hasActivity: true,
-    activityType: 'morning-routine',
     screenType: 'comparative'
   },
   {
@@ -244,8 +230,6 @@ export const questions: Question[] = [
     context: "Cuando hay un trabajo en grupo...",
     optionA: { text: "Divido las tareas desde el arranque para que quede claro quién hace qué", quadrant: 'B' },
     optionB: { text: "Que cada uno haga lo que le sale mejor y unir todo al final", quadrant: 'D' },
-    hasActivity: true,
-    activityType: 'task-assigner',
     screenType: 'comparative'
   },
   {

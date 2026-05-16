@@ -12,9 +12,6 @@ export interface Question {
     text: string
     quadrant: Quadrant
   }
-  hasActivity?: boolean
-  activityType?: 'music-mixer' | 'drawing-canvas' | 'puzzle' | 'cooking' | 'room-arranger' | 'packing' | 'morning-routine' | 'task-assigner'
-  activityOption?: 'A' | 'B'
   screenType?: ScreenType
 }
 

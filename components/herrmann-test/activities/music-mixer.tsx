@@ -88,10 +88,9 @@ interface MusicMixerProps {
   onComplete: () => void
 }
 
-export function MusicMixer({ selectedOption, onComplete }: MusicMixerProps) {
+export function MusicMixer({ onComplete }: MusicMixerProps) {
   const [items, setItems] = useState(GENRES)
   const [hasMixed, setHasMixed] = useState(false)
-  const isOptionB = selectedOption === "B"
 
   const sensors = useSensors(
     useSensor(MouseSensor),
@@ -120,12 +119,8 @@ export function MusicMixer({ selectedOption, onComplete }: MusicMixerProps) {
     <div className="space-y-5">
       <div className="text-center space-y-1">
         <h3 className="text-xl font-semibold">
-          {isOptionB ? "Mezclá el ranking" : "Armá tu Top 6"}
         </h3>
         <p className="text-sm text-muted-foreground">
-          {isOptionB
-            ? "Shuffleá el orden de los géneros"
-            : "Arrastrá para ordenarlos de favorito a menos favorito"}
         </p>
       </div>
 
@@ -134,18 +129,12 @@ export function MusicMixer({ selectedOption, onComplete }: MusicMixerProps) {
         <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
           🏆 Mi ranking
         </span>
-        {isOptionB && (
-          <Button onClick={shuffle} variant="outline" size="sm" className="rounded-full gap-1.5 h-7 text-xs">
-            <Shuffle className="w-3 h-3" /> Mezclar
-          </Button>
-        )}
       </div>
 
       {/* Ranking list */}
       <DndContext
         sensors={sensors}
         collisionDetection={closestCenter}
-        onDragEnd={isOptionB ? undefined : handleDragEnd}
       >
         <SortableContext items={items.map(i => i.id)} strategy={verticalListSortingStrategy}>
           <div className="space-y-2 max-w-sm mx-auto">
@@ -157,13 +146,6 @@ export function MusicMixer({ selectedOption, onComplete }: MusicMixerProps) {
       </DndContext>
 
       <div className="flex justify-center">
-        {(!isOptionB || hasMixed) && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-            <Button onClick={onComplete} size="lg" className="rounded-full gap-2">
-              <Check className="w-4 h-4" /> Listo con mi ranking
-            </Button>
-          </motion.div>
-        )}
       </div>
     </div>
   )
