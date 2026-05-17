@@ -24,6 +24,32 @@ export function HerrmannTest() {
   const [nombre, setNombre] = useState("")
   const [apellido, setApellido] = useState("")
 
+  // MINIJUEGOS
+
+  const defaultQuestionsUntilActivity = 0; // Una actividad cada 6 preguntas
+  const [questionsUntilActivity, setQuestionsUntilActivity] = useState(defaultQuestionsUntilActivity)
+
+  const activitiesList = ['blocks', 'puzzle', 'image', 'ball', 'balloon', 'blocks']
+
+  function getNextActivity() {
+    return 0;
+    if (currentIndex < 6) {
+      return 0;
+    } else if (currentIndex < 12) {
+      return 1;
+    } else if (currentIndex < 18) {
+      return 2;
+    } else if (currentIndex < 24) {
+      return 3;
+    } else if (currentIndex < 35) {
+      return 4;
+    } else {
+      return -1;
+    }
+  }
+
+  //
+
   const currentQuestion = shuffledQuestions[currentIndex]
   const totalQuestions = shuffledQuestions.length
 
@@ -50,12 +76,13 @@ export function HerrmannTest() {
       return [...filtered, { questionId: currentQuestion.id, choice: option, quadrant }]
     })
 
-    const activityShouldTrigger = currentQuestion.hasActivity &&
-      !activityCompleted &&
-      (!currentQuestion.activityOption || option === currentQuestion.activityOption)
+    setQuestionsUntilActivity(questionsUntilActivity - 1)
+
+    const activityShouldTrigger = questionsUntilActivity == 0 && getNextActivity() != -1
 
     if (activityShouldTrigger) {
       setShowActivity(true)
+      setQuestionsUntilActivity(defaultQuestionsUntilActivity)
       return
     }
 
@@ -76,6 +103,7 @@ export function HerrmannTest() {
       setShowActivity(false)
       setActivityCompleted(false)
       setCurrentIndex(prev => prev - 1)
+      setQuestionsUntilActivity(questionsUntilActivity + 1)
 
       const prevQuestion = shuffledQuestions[currentIndex - 1]
       const existingAnswer = answers.find(a => a.questionId === prevQuestion?.id)
@@ -102,6 +130,7 @@ export function HerrmannTest() {
   const handleSkipActivity = useCallback(() => {
     setShowActivity(false)
     setActivityCompleted(true)
+    setQuestionsUntilActivity(defaultQuestionsUntilActivity)
 
     if (currentIndex < totalQuestions - 1) {
       setCurrentIndex(prev => prev + 1)
@@ -125,6 +154,7 @@ export function HerrmannTest() {
     setActivityCompleted(false)
     setNombre("")
     setApellido("")
+    setQuestionsUntilActivity(defaultQuestionsUntilActivity)
   }, [])
 
   if (!testStarted) {
@@ -135,11 +165,11 @@ export function HerrmannTest() {
     return <ResultsScreen nombre={nombre} apellido={apellido} answers={answers} onRestart={handleRestart} />
   }
 
-  if (showActivity && currentQuestion?.hasActivity) {
+  // Render an activity
+  if (showActivity) {
     return (
       <ActivityWrapper
-        activityType={currentQuestion.activityType!}
-        selectedOption={selectedOption!}
+        activityType={activitiesList[getNextActivity()]}
         onComplete={handleActivityComplete}
         onSkip={handleSkipActivity}
       />

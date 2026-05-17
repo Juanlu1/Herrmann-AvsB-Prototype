@@ -2,43 +2,35 @@
 
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
-import { MusicMixer } from "./music-mixer"
-import { DrawingCanvas } from "./drawing-canvas"
+import { BlockGame } from "./block-game"
+import { BallGame } from "./ball-game"
 import { PuzzleGame } from "./puzzle-game"
-import { RoomArranger } from "./room-arranger"
-import { PackingGame } from "./packing-game"
-import { MorningRoutine } from "./morning-routine"
-import { TaskAssigner } from "./task-assigner"
+import {BalloonGame} from "./balloon-game";
+import { ImageGame } from "./image-game"
 
 interface ActivityWrapperProps {
   activityType: string
-  selectedOption: 'A' | 'B'
   onComplete: () => void
   onSkip: () => void
 }
 
 export function ActivityWrapper({
   activityType,
-  selectedOption,
   onComplete,
   onSkip
 }: ActivityWrapperProps) {
   const renderActivity = () => {
     switch (activityType) {
-      case 'music-mixer':
-        return <MusicMixer selectedOption={selectedOption} onComplete={onComplete} />
-      case 'drawing-canvas':
-        return <DrawingCanvas onComplete={onComplete} />
+      case 'blocks':
+        return <BlockGame onComplete={onComplete} />
+      case 'ball':
+        return <BallGame onComplete={onComplete} />
       case 'puzzle':
         return <PuzzleGame onComplete={onComplete} />
-      case 'room-arranger':
-        return <RoomArranger selectedOption={selectedOption} onComplete={onComplete} />
-      case 'packing':
-        return <PackingGame selectedOption={selectedOption} onComplete={onComplete} />
-      case 'morning-routine':
-        return <MorningRoutine selectedOption={selectedOption} onComplete={onComplete} />
-      case 'task-assigner':
-        return <TaskAssigner selectedOption={selectedOption} onComplete={onComplete} />
+      case 'balloon':
+        return <BalloonGame onComplete={onComplete} />
+      case 'image':
+        return <ImageGame onComplete={onComplete} />
       default:
         return null
     }
