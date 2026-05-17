@@ -2,10 +2,10 @@
 
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
-import { Blocks } from "./blocks"
-import { DrawingCanvas } from "./drawing-canvas"
+import { BlockGame } from "./block-game"
+import { BallGame } from "./ball-game"
 import { PuzzleGame } from "./puzzle-game"
-import { RoomArranger } from "./room-arranger"
+import {BalloonGame} from "./balloon-game";
 import { PackingGame } from "./packing-game"
 import { MorningRoutine } from "./morning-routine"
 import { TaskAssigner } from "./task-assigner"
@@ -24,13 +24,13 @@ export function ActivityWrapper({
   const renderActivity = () => {
     switch (activityType) {
       case 'blocks':
-        return <Blocks onComplete={onComplete} />
-      case 'drawing-canvas':
-        return <DrawingCanvas onComplete={onComplete} />
+        return <BlockGame onComplete={onComplete} />
+      case 'ball':
+        return <BallGame onComplete={onComplete} />
       case 'puzzle':
         return <PuzzleGame onComplete={onComplete} />
-      case 'room-arranger':
-        return <RoomArranger selectedOption={'A'} onComplete={onComplete} />
+      case 'balloon-game':
+        return <BalloonGame onComplete={onComplete} />
       case 'packing':
         return <PackingGame selectedOption={'A'} onComplete={onComplete} />
       case 'morning-routine':

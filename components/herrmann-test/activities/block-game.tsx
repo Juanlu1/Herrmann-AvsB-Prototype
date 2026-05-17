@@ -45,9 +45,8 @@ const PIECES: PieceDef[] = [
         color: '#FF6B6B',
         dark: '#CC4444',
         light: '#FF9999',
-        // ##
-        // #
-        // #
+        //  #
+        // ###
         cells: [
             { row: 1, col: 1 },
             { row: 2, col: 2 }, { row: 2, col: 1 }, { row: 2, col: 0 },
@@ -58,8 +57,9 @@ const PIECES: PieceDef[] = [
         color: '#4ECDC4',
         dark: '#36A89F',
         light: '#7EDDD6',
+        // ##
         // #
-        // ###
+        // #
         cells: [
             { row: 0, col: 0 }, { row: 0, col: 1 },
             { row: 1, col: 0 },
@@ -129,11 +129,14 @@ interface BlocksProps {
     onComplete: () => void
 }
 
-export function Blocks({ onComplete }: BlocksProps) {
+export function BlockGame({ onComplete }: BlocksProps) {
     const [placed, setPlaced] = useState<Record<string, Placement>>({});
     const [drag, setDrag] = useState<DragInfo | null>(null);
     const [hover, setHover] = useState<HoverInfo | null>(null);
     const [won, setWon] = useState(false);
+
+    const xOffset = -10;
+    const yOffset = -100;
 
     const gridRef = useRef<HTMLDivElement>(null);
 
@@ -161,6 +164,7 @@ export function Blocks({ onComplete }: BlocksProps) {
             const w = pw(cells);
 
             // Calculamos la celda origen basándonos en el centro geométrico de la pieza arrastrada
+            // Posición de la pieza dentro de la grilla
             const gr = Math.round((cy - rect.top) / cs - h / 2);
             const gc = Math.round((cx - rect.left) / cs - w / 2);
             const abs = cells.map((c) => ({ row: c.row + gr, col: c.col + gc }));

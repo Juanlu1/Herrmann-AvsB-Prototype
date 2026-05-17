@@ -29,7 +29,7 @@ export function HerrmannTest() {
   const defaultQuestionsUntilActivity = 5; // Una actividad cada 6 preguntas
   const [questionsUntilActivity, setQuestionsUntilActivity] = useState(defaultQuestionsUntilActivity)
 
-  const activitiesList = ['drawing-canvas', 'blocks', 'puzzle', 'room-arranger', 'packing', 'morning-routine', 'task-assigner']
+  const activitiesList = ['balloon-game', 'ball', 'blocks', 'puzzle', 'room-arranger', 'packing', 'morning-routine', 'task-assigner']
 
   //
 
