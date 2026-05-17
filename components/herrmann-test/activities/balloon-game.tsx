@@ -6,7 +6,7 @@ import { useState, useEffect, useRef, useCallback } from "react"
 // --- Configuración Global ---
 const MAX_PRESSES = 20;
 const DEFLATE_DELAY = 500; // Medio segundo sin presionar para empezar a desinflar
-const DEFLATE_RATE = 200;  // Velocidad de desinflado (ms por cada unidad de tamaño)
+const DEFLATE_RATE = 1;  // Velocidad de desinflado (ms por cada unidad de tamaño)
 const BALLOON_COLOR = "#FF6B6B";
 const BALLOON_EXPAND_SCALE = 4; // Píxeles que crece por cada click
 
@@ -35,7 +35,12 @@ export function BalloonGame({ onComplete }: BalloonGameProps) {
       const timeSinceLastPress = Date.now() - lastPressTime.current;
 
       if (timeSinceLastPress > DEFLATE_DELAY) {
-        setPressCount((prev) => (prev > 0 ? prev - 0.5 : 0));
+        setPressCount((prev) => {
+          // Restamos una pequeña fracción para que el movimiento sea fluido
+          // Si quieres que se desinfle más rápido, aumenta este 0.1
+          const decrement = 0.1;
+          return prev > 0 ? prev - decrement : 0;
+        });
       }
     }, DEFLATE_RATE);
 
@@ -127,8 +132,13 @@ export function BalloonGame({ onComplete }: BalloonGameProps) {
           {/* Barra de progreso sutil */}
           <div className="w-48 h-1.5 bg-slate-200 rounded-full overflow-hidden">
             <div
-                className="h-full bg-red-400 transition-all duration-300"
-                style={{ width: `${progress}%` }}
+                className="h-full bg-red-400 transition-all" // Eliminamos duration-300
+                style={{
+                  width: `${progress}%`,
+                  // Ajustamos la duración para que coincida exactamente con el rate de refresco
+                  transitionDuration: `${DEFLATE_RATE}ms`,
+                  transitionTimingFunction: 'linear'
+                }}
             />
           </div>
 
