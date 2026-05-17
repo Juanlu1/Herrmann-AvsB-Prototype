@@ -26,12 +26,13 @@ export function HerrmannTest() {
 
   // MINIJUEGOS
 
-  const defaultQuestionsUntilActivity = 5; // Una actividad cada 6 preguntas
+  const defaultQuestionsUntilActivity = 0; // Una actividad cada 6 preguntas
   const [questionsUntilActivity, setQuestionsUntilActivity] = useState(defaultQuestionsUntilActivity)
 
-  const activitiesList = ['puzzle', 'image', 'ball', 'balloon', 'blocks']
+  const activitiesList = ['blocks', 'puzzle', 'image', 'ball', 'balloon', 'blocks']
 
   function getNextActivity() {
+    return 0;
     if (currentIndex < 6) {
       return 0;
     } else if (currentIndex < 12) {
