@@ -4,11 +4,11 @@ import { motion } from "framer-motion";
 import { useState, useEffect, useRef, useCallback } from "react"
 
 // --- Configuración Global ---
-const MAX_PRESSES = 10;
+const MAX_PRESSES = 20;
 const DEFLATE_DELAY = 500; // Medio segundo sin presionar para empezar a desinflar
 const DEFLATE_RATE = 200;  // Velocidad de desinflado (ms por cada unidad de tamaño)
 const BALLOON_COLOR = "#FF6B6B";
-const BALLOON_EXPAND_SCALE = 10; // Píxeles que crece por cada click
+const BALLOON_EXPAND_SCALE = 4; // Píxeles que crece por cada click
 
 interface BalloonGameProps {
   onComplete: () => void

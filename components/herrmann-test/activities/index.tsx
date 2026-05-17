@@ -6,9 +6,7 @@ import { BlockGame } from "./block-game"
 import { BallGame } from "./ball-game"
 import { PuzzleGame } from "./puzzle-game"
 import {BalloonGame} from "./balloon-game";
-import { PackingGame } from "./packing-game"
-import { MorningRoutine } from "./morning-routine"
-import { TaskAssigner } from "./task-assigner"
+import { ImageGame } from "./image-game"
 
 interface ActivityWrapperProps {
   activityType: string
@@ -29,14 +27,10 @@ export function ActivityWrapper({
         return <BallGame onComplete={onComplete} />
       case 'puzzle':
         return <PuzzleGame onComplete={onComplete} />
-      case 'balloon-game':
+      case 'balloon':
         return <BalloonGame onComplete={onComplete} />
-      case 'packing':
-        return <PackingGame selectedOption={'A'} onComplete={onComplete} />
-      case 'morning-routine':
-        return <MorningRoutine selectedOption={'A'} onComplete={onComplete} />
-      case 'task-assigner':
-        return <TaskAssigner selectedOption={'A'} onComplete={onComplete} />
+      case 'image':
+        return <ImageGame onComplete={onComplete} />
       default:
         return null
     }

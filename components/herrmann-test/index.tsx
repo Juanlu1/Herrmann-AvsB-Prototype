@@ -29,7 +29,23 @@ export function HerrmannTest() {
   const defaultQuestionsUntilActivity = 5; // Una actividad cada 6 preguntas
   const [questionsUntilActivity, setQuestionsUntilActivity] = useState(defaultQuestionsUntilActivity)
 
-  const activitiesList = ['balloon-game', 'ball', 'blocks', 'puzzle', 'room-arranger', 'packing', 'morning-routine', 'task-assigner']
+  const activitiesList = ['puzzle', 'image', 'ball', 'balloon', 'blocks']
+
+  function getNextActivity() {
+    if (currentIndex < 6) {
+      return 0;
+    } else if (currentIndex < 12) {
+      return 1;
+    } else if (currentIndex < 18) {
+      return 2;
+    } else if (currentIndex < 24) {
+      return 3;
+    } else if (currentIndex < 35) {
+      return 4;
+    } else {
+      return -1;
+    }
+  }
 
   //
 
@@ -61,7 +77,7 @@ export function HerrmannTest() {
 
     setQuestionsUntilActivity(questionsUntilActivity - 1)
 
-    const activityShouldTrigger = questionsUntilActivity == 0
+    const activityShouldTrigger = questionsUntilActivity == 0 && getNextActivity() != -1
 
     if (activityShouldTrigger) {
       setShowActivity(true)
@@ -152,7 +168,7 @@ export function HerrmannTest() {
   if (showActivity) {
     return (
       <ActivityWrapper
-        activityType={activitiesList[0]}
+        activityType={activitiesList[getNextActivity()]}
         onComplete={handleActivityComplete}
         onSkip={handleSkipActivity}
       />
