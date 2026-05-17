@@ -135,9 +135,6 @@ export function BlockGame({ onComplete }: BlocksProps) {
     const [hover, setHover] = useState<HoverInfo | null>(null);
     const [won, setWon] = useState(false);
 
-    const xOffset = -10;
-    const yOffset = -100;
-
     const gridRef = useRef<HTMLDivElement>(null);
 
     /* derived grid */
@@ -167,7 +164,9 @@ export function BlockGame({ onComplete }: BlocksProps) {
             // Posición de la pieza dentro de la grilla
             const gr = Math.round((cy - rect.top) / cs - h / 2);
             const gc = Math.round((cx - rect.left) / cs - w / 2);
-            const abs = cells.map((c) => ({ row: c.row + gr, col: c.col + gc }));
+            const abs = cells.map((c) => (
+                { row: c.row + gr, col: c.col + gc })
+            );
 
             const margin = cs * 1.2;
             if (
@@ -223,6 +222,7 @@ export function BlockGame({ onComplete }: BlocksProps) {
             setDrag((prev) =>
                 prev ? { ...prev, x: e.clientX, y: e.clientY } : null,
             );
+            // Grid highlight
             setHover(calcHover(e.clientX, e.clientY, drag.pieceId));
         };
 
@@ -438,12 +438,15 @@ function DragGhost({
     const ghostW = w * cs;
     const ghostH = h * cs;
 
+    const xOffset = -10;
+    const yOffset = -100;
+
     return (
         <div
             className="fixed pointer-events-none z-50"
             style={{
-                left: drag.x - ghostW / 2,
-                top: drag.y - ghostH / 2,
+                left: drag.x - ghostW / 2 + xOffset,
+                top: drag.y - ghostH / 2 + yOffset,
                 width: ghostW,
                 height: ghostH,
                 opacity: 0.85,
