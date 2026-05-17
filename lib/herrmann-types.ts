@@ -1,4 +1,5 @@
 export type Quadrant = 'A' | 'B' | 'C' | 'D'
+export type ScreenType = 'narrative' | 'ultra-fast' | 'comparative'
 
 export interface Question {
   id: number
@@ -14,6 +15,7 @@ export interface Question {
   hasActivity?: boolean
   activityType?: 'music-mixer' | 'drawing-canvas' | 'puzzle' | 'cooking' | 'room-arranger' | 'packing' | 'morning-routine' | 'task-assigner'
   activityOption?: 'A' | 'B'
+  screenType?: ScreenType
 }
 
 export interface Answer {
