@@ -279,7 +279,7 @@ export function BallGame({ onComplete }: DrawingCanvasProps) {
   if (!isMounted) return <div className="w-full h-[320px] bg-slate-800 rounded-2xl animate-pulse"/>;
 
   return (
-      <div className="relative w-full h-[320px] rounded-2xl overflow-hidden border border-slate-700 shadow-lg" style={{background: "#3a2010"}}>
+      <div className="relative w-full h-[320px] overflow-hidden border border-slate-700 shadow-lg" style={{background: "#3a2010"}}>
         {won && (
             <div className="absolute inset-0 bg-white/80 backdrop-blur-[2px] flex flex-col items-center justify-center p-4 text-center z-50 animate-fade-in pointer-events-auto">
               <h4 className="text-xl font-black text-slate-800 tracking-tight font-sans">¡Bien hecho!</h4>

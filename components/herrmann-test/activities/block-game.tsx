@@ -262,14 +262,13 @@ export function BlockGame({ onComplete }: BlocksProps) {
     }, [hover]);
 
     return (
-        <div className="w-full flex flex-col items-center justify-center p-4 select-none bg-slate-50 rounded-2xl border border-slate-200 shadow-sm max-w-md mx-auto">
+        <div className="w-full flex flex-col items-center justify-center p-4 select-none rounded-2xl border border-slate-200 shadow-sm max-w-md mx-auto">
 
             {/* CUADRILLA / GRID CONTENEDOR */}
-            <div className="relative p-1 bg-slate-200 rounded-2xl border border-slate-300">
+            <div className="relative p-1 w-full bg-slate-200 rounded-2xl border border-slate-300">
                 <div
                     ref={gridRef}
                     style={{
-                        width: 'min(72vw, 280px)',
                         aspectRatio: '1',
                         display: 'grid',
                         gridTemplateColumns: `repeat(${GRID}, 1fr)`,

@@ -87,15 +87,15 @@ export function PuzzleGame({ onComplete }: PuzzleGameProps) {
   return (
     <div className="space-y-5">
       <div className="text-center space-y-1">
-        <h3 className="text-xl font-semibold">Encontrá los pares</h3>
-        <p className="text-sm text-muted-foreground">Tocá dos cartas para encontrar emojis iguales</p>
+        <h3 className="text-xl font-semibold text-(--t-text-title)">Encontrá los pares</h3>
+        <p className="text-sm text-(--t-text-body)">Tocá dos cartas para encontrar emojis iguales</p>
       </div>
 
-      <div className="flex items-center justify-between px-1 max-w-xs mx-auto">
-        <span className="text-xs text-muted-foreground">
-          Movimientos: <span className="font-semibold text-foreground">{moves}</span>
+      <div className="flex items-center justify-between px-1 max-w-xs mx-auto text-(--t-text-body)">
+        <span className="text-xs">
+          Movimientos: <span className="font-semibold">{moves}</span>
         </span>
-        <button onClick={reset} className="flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground transition-colors">
+        <button onClick={reset} className="flex items-center gap-1 text-xs hover:text-muted transition-colors">
           <RotateCcw className="w-3 h-3" /> Reiniciar
         </button>
       </div>
@@ -117,7 +117,7 @@ export function PuzzleGame({ onComplete }: PuzzleGameProps) {
               >
                 {/* Back */}
                 <div
-                  className="absolute inset-0 rounded-xl bg-primary/80 flex items-center justify-center shadow-sm border border-primary/40"
+                  className="absolute inset-0 rounded-xl flex items-center justify-center shadow-sm border border-primary/40"
                   style={{ backfaceVisibility: "hidden" }}
                 >
                   <span className="text-xl">❓</span>
@@ -128,7 +128,7 @@ export function PuzzleGame({ onComplete }: PuzzleGameProps) {
                     "absolute inset-0 rounded-xl flex items-center justify-center shadow-sm border",
                     card.isMatched
                       ? "bg-green-500/20 border-green-500/50"
-                      : "bg-card border-border/50"
+                      : "bg-white border-border/50"
                   )}
                   style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)" }}
                 >
@@ -148,7 +148,7 @@ export function PuzzleGame({ onComplete }: PuzzleGameProps) {
             className="text-center space-y-3"
           >
             <p className="text-base font-semibold text-primary">
-              🎉 Lo encontraste todo en {moves} movimientos!
+              Lo encontraste todo en {moves} movimientos!
             </p>
             <Button onClick={onComplete} size="lg" className="rounded-full gap-2">
               <Check className="w-4 h-4" /> Listo
