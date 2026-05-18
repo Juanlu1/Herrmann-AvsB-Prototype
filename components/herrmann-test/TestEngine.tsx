@@ -14,7 +14,8 @@ const DYNAMICS = ["slide", "split"] as const
 type DynamicKey = (typeof DYNAMICS)[number]
 
 // Adding a new theme: create CSS, import, add entry.
-const THEMES = ["aurora", "ethereal"] as const
+// const THEMES = ["aurora", "ethereal"] as const
+const THEMES = ["aurora"] as const
 type ThemeKey = (typeof THEMES)[number]
 
 type Combo = { dynamic: DynamicKey; theme: ThemeKey }

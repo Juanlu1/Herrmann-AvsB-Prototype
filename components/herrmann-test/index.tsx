@@ -22,6 +22,31 @@ export function HerrmannTest() {
   const [nombre, setNombre] = useState("")
   const [apellido, setApellido] = useState("")
 
+  // MINIJUEGOS
+
+  const defaultQuestionsUntilActivity = 5; // Una actividad cada 6 preguntas
+  const [questionsUntilActivity, setQuestionsUntilActivity] = useState(defaultQuestionsUntilActivity)
+
+  const activitiesList = ['puzzle', 'image', 'ball', 'balloon', 'blocks']
+
+  function getNextActivity() {
+    if (currentIndex < 6) {
+      return 0;
+    } else if (currentIndex < 12) {
+      return 1;
+    } else if (currentIndex < 18) {
+      return 2;
+    } else if (currentIndex < 24) {
+      return 3;
+    } else if (currentIndex < 35) {
+      return 4;
+    } else {
+      return -1;
+    }
+  }
+
+  //
+
   const currentQuestion = shuffledQuestions[currentIndex]
   const totalQuestions = shuffledQuestions.length
 
@@ -66,16 +91,16 @@ export function HerrmannTest() {
       ]
       setAnswers(newAnswers)
 
-      const activityShouldTrigger =
-        currentQuestion.hasActivity &&
-        !activityCompleted &&
-        (!currentQuestion.activityOption || option === currentQuestion.activityOption)
+    setQuestionsUntilActivity(questionsUntilActivity - 1)
+
+    const activityShouldTrigger = questionsUntilActivity == 0 && getNextActivity() != -1
 
       if (activityShouldTrigger) {
         setPendingOption(option)
         setShowActivity(true)
+        setQuestionsUntilActivity(defaultQuestionsUntilActivity)
         return
-      }
+    }
 
       advanceTo(currentIndex + 1, newAnswers)
     },
@@ -104,6 +129,7 @@ export function HerrmannTest() {
     setPendingOption(null)
     setNombre("")
     setApellido("")
+    setQuestionsUntilActivity(defaultQuestionsUntilActivity)
   }, [])
 
   if (phase === "intro") {
@@ -125,11 +151,11 @@ export function HerrmannTest() {
     )
   }
 
-  if (showActivity && currentQuestion?.hasActivity) {
+  // Render an activity
+  if (showActivity) {
     return (
       <ActivityWrapper
-        activityType={currentQuestion.activityType!}
-        selectedOption={pendingOption!}
+        activityType={activitiesList[getNextActivity()]}
         onComplete={handleActivityComplete}
         onSkip={handleSkipActivity}
       />
