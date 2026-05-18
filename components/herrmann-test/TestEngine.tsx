@@ -20,14 +20,8 @@ type ThemeKey = (typeof THEMES)[number]
 
 type Combo = { dynamic: DynamicKey; theme: ThemeKey }
 
-function pickCombo(blockIndex: number, previous: Combo | null): Combo {
-  const allCombos: Combo[] = DYNAMICS.flatMap(d =>
-    THEMES.map(t => ({ dynamic: d, theme: t })),
-  )
-  const available = previous
-    ? allCombos.filter(c => !(c.dynamic === previous.dynamic && c.theme === previous.theme))
-    : allCombos
-  return available[Math.floor(Math.random() * available.length)]
+function pickCombo(blockIndex: number): Combo {
+  return { dynamic: blockIndex % 2 === 0 ? "split" : "slide", theme: "aurora" }
 }
 
 // ─── Props ────────────────────────────────────────────────────────────────────
@@ -47,8 +41,7 @@ export function TestEngine({ questions, currentIndex, onSelect }: TestEngineProp
 
   // Stable combo per block
   if (!comboMapRef.current.has(blockIndex)) {
-    const prev = blockIndex > 0 ? (comboMapRef.current.get(blockIndex - 1) ?? null) : null
-    comboMapRef.current.set(blockIndex, pickCombo(blockIndex, prev))
+    comboMapRef.current.set(blockIndex, pickCombo(blockIndex))
   }
   const combo = comboMapRef.current.get(blockIndex)!
 
@@ -62,6 +55,24 @@ export function TestEngine({ questions, currentIndex, onSelect }: TestEngineProp
     root.classList.add(`theme-${combo.theme}`)
     return () => { root.classList.remove(`theme-${combo.theme}`) }
   }, [combo.theme])
+
+  // Lock body scroll on mobile to prevent page scroll interfering with swipe
+  useEffect(() => {
+    if (typeof window === "undefined" || window.innerWidth >= 768) return
+    const prev = {
+      overflow: document.body.style.overflow,
+      position: document.body.style.position,
+      width: document.body.style.width,
+    }
+    document.body.style.overflow = "hidden"
+    document.body.style.position = "fixed"
+    document.body.style.width = "100%"
+    return () => {
+      document.body.style.overflow = prev.overflow
+      document.body.style.position = prev.position
+      document.body.style.width = prev.width
+    }
+  }, [])
 
   // Show transition banner when block changes
   useEffect(() => {
