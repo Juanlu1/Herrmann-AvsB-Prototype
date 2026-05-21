@@ -147,10 +147,6 @@ export function SplitInteraction({
         width: "100%",
         height: "100%",
         display: "grid",
-        gridTemplateAreas: '"a" "ctx" "b"',
-        gridTemplateRows: "1fr auto 1fr",
-        gridTemplateColumns: "1fr",
-        gap: 12,
         userSelect: "none",
       }}
       className="split-stage-grid"
@@ -169,8 +165,8 @@ export function SplitInteraction({
         </div>
       </button>
 
-      {/* Context card — center on mobile */}
-      <div style={{ gridArea: "ctx", display: "flex", justifyContent: "center" }}>
+      {/* Context — absolute pill on mobile, in-grid on desktop */}
+      <div className="split-ctx-wrapper">
         <div style={contextCardStyle}>
           <div style={{
             fontSize: 11,
@@ -211,6 +207,36 @@ export function SplitInteraction({
       </button>
 
       <style>{`
+        /* Mobile: two equal halves, no gap */
+        .split-stage-grid {
+          grid-template-areas: "a" "b";
+          grid-template-rows: 1fr 1fr;
+          grid-template-columns: 1fr;
+          gap: 0;
+        }
+
+        /* Context pill: absolute, centered between the two halves */
+        .split-ctx-wrapper {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          z-index: 10;
+          display: flex;
+          justify-content: center;
+          width: 88%;
+          pointer-events: none;
+        }
+
+        /* Mobile inner card: A rounded on top, B rounded on bottom, flush where they meet */
+        .split-stage-grid > button:first-of-type > div {
+          border-radius: 20px 20px 0 0 !important;
+        }
+        .split-stage-grid > button:last-of-type > div {
+          border-radius: 0 0 20px 20px !important;
+        }
+
+        /* Desktop: context on top row, options side by side */
         @media (min-width: 720px) {
           .split-stage-grid {
             grid-template-areas: "ctx ctx" "a b" !important;
@@ -218,8 +244,15 @@ export function SplitInteraction({
             grid-template-columns: 1fr 1fr !important;
             gap: 16px !important;
           }
-        }
-        @media (min-width: 720px) {
+          .split-ctx-wrapper {
+            position: static !important;
+            transform: none !important;
+            grid-area: ctx !important;
+            display: flex !important;
+            justify-content: center !important;
+            width: 100% !important;
+            pointer-events: auto !important;
+          }
           .split-stage-grid > button > div {
             padding: 36px 28px !important;
             border-radius: 28px !important;
