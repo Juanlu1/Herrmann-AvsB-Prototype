@@ -83,8 +83,7 @@ export function ResultsScreen({ nombre, apellido, answers, onRestart }: ResultsS
           <Button
             onClick={onRestart}
             size="lg"
-            variant="outline"
-            className="px-10 py-6 rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
+            className="px-10 py-6 rounded-full font-bold shadow-lg hover:shadow-xl transition-all duration-300"
           >
             Volver a empezar
           </Button>

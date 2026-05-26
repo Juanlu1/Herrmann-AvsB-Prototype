@@ -27,13 +27,13 @@ export function ExplainerScreen({ onContinue }: ExplainerScreenProps) {
         <div className="w-full max-w-(--size-3xl) p-6 md:p-10 rounded-xl bg-card/80 border border-border backdrop-blur-xl shadow-2xl text-foreground">
 
           {/* Eyebrow / Tag */}
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent/10 border border-accent/20 text-accent text-xs tracking-widest uppercase font-semibold mb-4">
-            <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
-            Cómo funciona
+          <div className="flex items-center gap-2 text-primary-foreground text-s font-semibold mb-4">
+            <span className="w-1.5 h-1.5 rounded-full" />
+            Cómo funciona:
           </div>
 
           {/* Title - Usando Merriweather para elegancia académica */}
-          <h1 className="font-serif font-bold text-3xl md:text-5xl leading-tight tracking-tight text-foreground mb-4">
+          <h1 className="font-serif font-bold text-3xl md:text-5xl leading-tight tracking-tight text-primary mb-4">
             Dos formas de elegir<br />a lo largo del test
           </h1>
 

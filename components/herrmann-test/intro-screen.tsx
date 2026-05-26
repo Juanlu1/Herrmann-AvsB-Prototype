@@ -117,7 +117,7 @@ export function IntroScreen({ onStart }: IntroScreenProps) {
             onClick={() => onStart(nombre.trim(), apellido.trim())}
             disabled={!canStart}
             size="lg"
-            className="text-base px-14 py-6 rounded-full bg-primary hover:bg-primary/90 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 active:scale-95 disabled:opacity-40 disabled:pointer-events-none"
+            className="font-bold px-14 py-6 rounded-full bg-primary hover:bg-primary/90 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 active:scale-95 disabled:opacity-40 disabled:pointer-events-none"
           >
             Comenzar
           </Button>
