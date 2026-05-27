@@ -50,9 +50,9 @@ export function TestEngine({ questions, currentIndex, onSelect }: TestEngineProp
         <div className="fixed inset-0 flex flex-col bg-background text-foreground font-sans overflow-hidden">
             {/* ── Progress bar ── */}
             <div className="relative z-10 px-7 pt-6 flex items-center gap-4">
-                <div className="flex-1 h-1.5 rounded-full bg-border overflow-hidden">
+                <div className="flex-1 h-1.5 rounded-full bg-muted overflow-hidden">
                     <motion.div
-                        className="h-full bg-primary"
+                        className="h-full bg-accent"
                         initial={false}
                         animate={{ width: `${(currentIndex / total) * 100}%` }}
                         transition={{ duration: 0.48, ease: [0.4, 0, 0.2, 1] }}

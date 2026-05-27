@@ -48,7 +48,7 @@ export function IntroScreen({ onStart }: IntroScreenProps) {
         {/* Badge decorativo */}
         <motion.div variants={itemVariants}>
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-border bg-card backdrop-blur-sm text-sm text-primary font-bold">
-            <Sparkles className="w-3.5 h-3.5 text-primary-foreground" />
+            <Sparkles className="w-3.5 h-3.5 text-accent" />
             Test de estilos
           </div>
         </motion.div>
