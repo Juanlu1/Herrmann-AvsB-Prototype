@@ -27,8 +27,8 @@ export function ExplainerScreen({ onContinue }: ExplainerScreenProps) {
         <div className="w-full max-w-(--size-3xl) p-6 md:p-10 rounded-xl bg-card/80 border border-border backdrop-blur-xl shadow-2xl text-foreground">
 
           {/* Eyebrow / Tag */}
-          <div className="flex items-center gap-2 text-accent text-s font-semibold mb-4">
-            <span className="w-1.5 h-1.5 rounded-full bg-accent" />
+          <div className="flex items-center gap-2 text-primary text-s font-semibold mb-4">
+            <span className="w-1.5 h-1.5 rounded-full bg-primary" />
             Cómo funciona:
           </div>
 

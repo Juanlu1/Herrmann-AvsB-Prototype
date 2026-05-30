@@ -41,7 +41,9 @@ export function TestEngine({ questions, currentIndex, onSelect }: TestEngineProp
         if (typeof window === "undefined" || window.innerWidth >= 768) return
         const prevOverflow = document.body.style.overflow
         document.body.style.overflow = "hidden"
-        return () => { document.body.style.overflow = prevOverflow }
+        return () => {
+            document.body.style.overflow = prevOverflow
+        }
     }, [])
 
     if (!question) return null
@@ -52,15 +54,15 @@ export function TestEngine({ questions, currentIndex, onSelect }: TestEngineProp
             <div className="relative z-10 px-7 pt-6 flex items-center gap-4">
                 <div className="flex-1 h-1.5 rounded-full bg-muted overflow-hidden">
                     <motion.div
-                        className="h-full bg-accent"
+                        className="h-full bg-primary"
                         initial={false}
                         animate={{ width: `${(currentIndex / total) * 100}%` }}
                         transition={{ duration: 0.48, ease: [0.4, 0, 0.2, 1] }}
                     />
                 </div>
                 <span className="text-xs font-mono text-muted-foreground tabular-nums">
-          {String(currentIndex + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
-        </span>
+                    {String(currentIndex + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
+                </span>
             </div>
 
             {/* ── Active dynamic ── */}
@@ -68,10 +70,10 @@ export function TestEngine({ questions, currentIndex, onSelect }: TestEngineProp
                 <AnimatePresence mode="wait">
                     <motion.div
                         key={`${question.id}-${activeDynamic}`}
-                        initial={{ opacity: 0, scale: 0.98 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        exit={{ opacity: 0, scale: 1.02 }}
-                        transition={{ duration: 0.25, ease: "easeOut" }}
+                        initial={{opacity: 0, scale: 0.98}}
+                        animate={{opacity: 1, scale: 1}}
+                        exit={{opacity: 0, scale: 1.02}}
+                        transition={{duration: 0.25, ease: "easeOut"}}
                         className="w-full h-full flex items-center justify-center"
                     >
                         {activeDynamic === "slide" ? (

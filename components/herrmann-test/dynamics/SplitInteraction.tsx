@@ -54,10 +54,10 @@ export function SplitInteraction({
 
         let stateClasses = "bg-card border-primary shadow-sm";
 
-        if (isTarget) stateClasses = "shadow-md scale-[1.012]";
-        if (isChosen) stateClasses = "shadow-lg scale-[1.025] z-20";
+        if (isTarget) stateClasses += "shadow-md scale-[1.012]";
+        if (isChosen) stateClasses += "shadow-lg scale-[1.025] z-20";
 
-        if (isRejected) return "opacity-0 scale-95 pointer-events-none transition-all duration-300";
+        if (isRejected) stateClasses += "opacity-0 scale-95 pointer-events-none transition-all duration-300";
         if (isOther) stateClasses += " opacity-40";
 
         const mobileBorders = !anyChosen

@@ -9,38 +9,13 @@ import { PuzzleGame } from "./puzzle-game"
 import { BalloonGame } from "./balloon-game"
 import { ImageGame } from "./image-game"
 
-// Importamos los mismos temas del TestEngine
-
 interface ActivityWrapperProps {
   activityType: string
   onComplete: () => void
   onSkip: () => void
 }
 
-// Constants & Themes
-// const THEMES = ["aurora", "ethereal"] as const
-const THEMES = ["aurora"] as const
-type ThemeKey = (typeof THEMES)[number]
-
-export function ActivityWrapper({
-                                  activityType,
-                                  onComplete,
-                                  onSkip
-                                }: ActivityWrapperProps) {
-
-  // Usamos una referencia para que el tema sea estable durante la actividad
-  const themeRef = useRef<ThemeKey>(THEMES[Math.floor(Math.random() * THEMES.length)])
-  const theme = themeRef.current
-
-  // Aplicar clase de tema al root (document.documentElement) igual que en TestEngine
-  useEffect(() => {
-    const root = document.documentElement
-    THEMES.forEach(t => root.classList.remove(`theme-${t}`))
-    root.classList.add(`theme-${theme}`)
-    return () => {
-      root.classList.remove(`theme-${theme}`)
-    }
-  }, [theme])
+export function ActivityWrapper({ activityType, onComplete, onSkip }: ActivityWrapperProps) {
 
   const renderActivity = () => {
     switch (activityType) {
