@@ -9,6 +9,8 @@ import { TestEngine } from "./TestEngine"
 import { questions, shuffleQuestions } from "@/lib/questions"
 import type { Answer, Question } from "@/lib/herrmann-types"
 
+import { ProgressSlide} from "@/components/herrmann-test/activities/loading"
+
 type Phase = "intro" | "explainer" | "test" | "results"
 
 export function HerrmannTest() {
@@ -153,12 +155,16 @@ export function HerrmannTest() {
 
   // Render an activity
   if (showActivity) {
+
     return (
-      <ActivityWrapper
-        activityType={activitiesList[getNextActivity()]}
-        onComplete={handleActivityComplete}
-        onSkip={handleSkipActivity}
-      />
+        <ProgressSlide total={36} progreso={currentIndex} onComplete={handleActivityComplete} />
+        /*
+          <ActivityWrapper
+          activityType={activitiesList[getNextActivity()]}
+          onComplete={handleActivityComplete}
+          onSkip={handleSkipActivity}
+        />
+        */
     )
   }
 

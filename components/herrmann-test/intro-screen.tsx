@@ -47,7 +47,7 @@ export function IntroScreen({ onStart }: IntroScreenProps) {
 
         {/* Badge decorativo */}
         <motion.div variants={itemVariants}>
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-border/60 bg-card/60 backdrop-blur-sm text-sm text-muted-foreground">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-border bg-card backdrop-blur-sm text-sm text-primary font-bold">
             <Sparkles className="w-3.5 h-3.5 text-primary" />
             Test de estilos
           </div>
@@ -56,7 +56,7 @@ export function IntroScreen({ onStart }: IntroScreenProps) {
         {/* Título */}
         <motion.h1
           variants={itemVariants}
-          className="text-5xl md:text-6xl font-bold tracking-tight text-foreground leading-[1.1]"
+          className="text-5xl md:text-6xl font-bold tracking-tight text-foreground leading-[1.1] font-serif"
         >
           Estilos de
           <br />
@@ -117,7 +117,7 @@ export function IntroScreen({ onStart }: IntroScreenProps) {
             onClick={() => onStart(nombre.trim(), apellido.trim())}
             disabled={!canStart}
             size="lg"
-            className="text-base px-14 py-6 rounded-full bg-primary hover:bg-primary/90 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 active:scale-95 disabled:opacity-40 disabled:pointer-events-none"
+            className="font-bold px-14 py-6 rounded-full bg-primary hover:bg-primary/90 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 active:scale-95 disabled:opacity-40 disabled:pointer-events-none"
           >
             Comenzar
           </Button>

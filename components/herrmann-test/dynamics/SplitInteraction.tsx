@@ -14,22 +14,22 @@ interface SplitInteractionProps {
 const COMMIT_MS = 320
 
 export function SplitInteraction({
-  question,
-  onSelect,
-}: SplitInteractionProps) {
+                                   question,
+                                   onSelect,
+                                 }: SplitInteractionProps) {
   const [target, setTarget] = useState<"A" | "B" | null>(null)
   const [leaving, setLeaving] = useState<"A" | "B" | null>(null)
   const committedRef = useRef(false)
 
   const commit = useCallback(
-    (choice: "A" | "B") => {
-      if (committedRef.current) return
-      committedRef.current = true
-      setLeaving(choice)
-      setTarget(choice)
-      setTimeout(() => onSelect(choice), COMMIT_MS)
-    },
-    [onSelect],
+      (choice: "A" | "B") => {
+        if (committedRef.current) return
+        committedRef.current = true
+        setLeaving(choice)
+        setTarget(choice)
+        setTimeout(() => onSelect(choice), COMMIT_MS)
+      },
+      [onSelect],
   )
 
   useEffect(() => {
@@ -44,170 +44,86 @@ export function SplitInteraction({
 
   const isLeaving = leaving !== null
 
-  const sharedHalfStyle: React.CSSProperties = {
-    appearance: "none" as never,
-    border: "none",
-    padding: 0,
-    margin: 0,
-    cursor: isLeaving ? "default" : "pointer",
-    background: "transparent",
-    fontFamily: "inherit",
-    color: "var(--t-text-heading)",
-    display: "flex",
-    alignItems: "stretch",
-    minHeight: 0,
-    width: "100%",
-  }
+  // Helper para las clases dinámicas de las mitades
+    const getCardClasses = (side: "A" | "B") => {
+        const isTarget = target === side;
+        const isOther = target !== null && target !== side;
+        const isChosen = leaving === side;
+        const isRejected = leaving !== null && leaving !== side;
+        const anyChosen = leaving !== null; // ¿Ya se tomó una decisión?
 
-  const innerBase: React.CSSProperties = {
-    width: "100%",
-    height: "100%",
-    padding: "24px 22px",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-    textAlign: "center",
-    gap: 14,
-    borderRadius: 24,
-    background: "var(--t-card-bg)",
-    border: "1.5px solid var(--t-card-border)",
-    backdropFilter: "var(--t-backdrop)",
-    WebkitBackdropFilter: "var(--t-backdrop)" as never,
-    transition: "border-color 240ms, box-shadow 240ms, opacity 240ms, transform 300ms",
-    boxShadow: "var(--t-shadow-card)",
-    overflow: "hidden",
-  }
+        let stateClasses = "bg-card border-primary shadow-sm";
 
-  function getHalfInnerStyle(side: "A" | "B"): React.CSSProperties {
-    const isTarget = target === side
-    const isOther = target !== null && target !== side
-    const isChosen = leaving === side
-    const isRejected = leaving !== null && leaving !== side
+        if (isTarget) stateClasses += "shadow-md scale-[1.012]";
+        if (isChosen) stateClasses += "shadow-lg scale-[1.025] z-20";
 
-    return {
-      ...innerBase,
-      borderColor: isTarget ? "var(--t-option-selected-border)" : "var(--t-card-border)",
-      boxShadow: isChosen
-        ? "var(--t-option-selected-shadow)"
-        : "var(--t-shadow-card)",
-      opacity: isRejected ? 0 : isOther ? 0.55 : 1,
-      transform: isTarget ? "scale(1.012)" : isChosen ? "scale(1.025)" : "scale(1)",
-    }
-  }
+        if (isRejected) stateClasses += "opacity-0 scale-95 pointer-events-none transition-all duration-300";
+        if (isOther) stateClasses += " opacity-40";
 
-  const tagStyle: React.CSSProperties = {
-    display: "inline-flex",
-    alignItems: "center",
-    justifyContent: "center",
-    width: 34,
-    height: 34,
-    borderRadius: 12,
-    background: "rgba(255,255,255,.06)",
-    color: "var(--t-text-muted)",
-    fontFamily: "inherit",
-    fontSize: 13,
-    fontWeight: 700,
-    letterSpacing: ".04em",
-    flexShrink: 0,
-  }
+        const mobileBorders = !anyChosen
+            ? (side === "A" ? "border-b-1" : "border-t-1")
+            : "border-2";
 
-  const optionTextStyle: React.CSSProperties = {
-    fontFamily: "inherit",
-    fontWeight: 700,
-    fontSize: "clamp(20px, 5vw, 24px)",
-    lineHeight: 1.28,
-    letterSpacing: "-0.01em",
-    color: "var(--t-text-heading)",
-    maxWidth: 420,
-  }
+        return `w-full h-full p-6 md:p-9 flex flex-col items-center justify-center text-center gap-4 transition-all duration-300 overflow-hidden border-2 ${mobileBorders} md:border-2 ${stateClasses}`;
+    };
 
-  const contextCardStyle: React.CSSProperties = {
-    textAlign: "center",
-    padding: "16px 22px",
-    borderRadius: 20,
-    background: "var(--t-card-bg)",
-    border: "1.5px solid var(--t-card-border)",
-    backdropFilter: "var(--t-backdrop)",
-    WebkitBackdropFilter: "var(--t-backdrop)" as never,
-    boxShadow: "var(--t-shadow-card)",
-    width: "100%",
-    maxWidth: 560,
-    alignSelf: "center",
-    justifySelf: "center",
-  }
+  const renderOption = (side: "A" | "B", optionText: string) => {
+    const isA = side === "A";
+
+    return (
+        <button
+            className={`p-0 m-0 bg-transparent flex items-stretch min-h-0 w-full transition-cursor duration-200 ${isLeaving ? 'cursor-default' : 'cursor-pointer'}`}
+            style={{ gridArea: isA ? "a" : "b" }}
+            onPointerEnter={() => !committedRef.current && setTarget(side)}
+            onPointerLeave={() => !committedRef.current && setTarget(t => t === side ? null : t)}
+            onClick={() => commit(side)}
+            aria-label={`Elegir ${side}: ${optionText}`}
+        >
+          <div className={`
+        ${getCardClasses(side)} 
+        ${isA ? 'rounded-t-[20px]' : 'rounded-b-[20px]'} 
+        md:rounded-[28px]
+      `}>
+            {/* Label (A o B) */}
+            <div className="flex-none w-9 h-9 rounded-xl bg-muted text-muted-foreground flex items-center justify-center text-sm font-bold tracking-widest border border-border/50">
+              {side}
+            </div>
+
+            {/* Texto de la opción - Unificado */}
+            <div className="text-xl md:text-2xl leading-tight tracking-tight text-foreground max-w-md">
+              {optionText}
+            </div>
+          </div>
+        </button>
+    );
+  };
 
   return (
-    <motion.div
-      key={question.id}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      style={{
-        position: "relative",
-        width: "100%",
-        height: "100%",
-        display: "grid",
-        userSelect: "none",
-      }}
-      className="split-stage-grid"
-    >
-      {/* Option A */}
-      <button
-        style={{ ...sharedHalfStyle, gridArea: "a" }}
-        onPointerEnter={() => !committedRef.current && setTarget("A")}
-        onPointerLeave={() => !committedRef.current && setTarget(t => t === "A" ? null : t)}
-        onClick={() => commit("A")}
-        aria-label={`Elegir A: ${question.optionA.text}`}
+      <motion.div
+          key={question.id}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="relative w-full h-full grid select-none split-stage-grid"
       >
-        <div style={getHalfInnerStyle("A")}>
-          <div style={tagStyle}>A</div>
-          <div style={optionTextStyle}>{question.optionA.text}</div>
-        </div>
-      </button>
+        {/* Option A */}
+        {renderOption("A", question.optionA.text)}
 
-      {/* Context — absolute pill on mobile, in-grid on desktop */}
-      <div className="split-ctx-wrapper">
-        <div style={contextCardStyle}>
-          <div style={{
-            fontSize: 11,
-            letterSpacing: ".22em",
-            textTransform: "uppercase",
-            color: "var(--t-text-muted)",
-            marginBottom: 6,
-            fontFamily: "inherit",
-            fontWeight: 600,
-          }}>
-            Situación
-          </div>
-          <div style={{
-            fontFamily: "inherit",
-            fontWeight: 700,
-            fontSize: "clamp(18px, 4.4vw, 22px)",
-            lineHeight: 1.28,
-            letterSpacing: "-0.01em",
-            color: "var(--t-text-heading)",
-          }}>
-            {question.context}
+        {/* Context Pill */}
+        <div className="split-ctx-wrapper ">
+          <div className="text-center px-6 py-4 rounded-2xl bg-card border-2 border-primary backdrop-blur-md w-full max-w-lg shadow-none">
+            <div className="text-[10px] tracking-[0.22em] uppercase text-muted-foreground font-bold mb-1.5">
+              Situación
+            </div>
+            <div className="font-sans font-bold text-lg md:text-xl leading-tight text-foreground">
+              {question.context}
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* Option B */}
-      <button
-        style={{ ...sharedHalfStyle, gridArea: "b" }}
-        onPointerEnter={() => !committedRef.current && setTarget("B")}
-        onPointerLeave={() => !committedRef.current && setTarget(t => t === "B" ? null : t)}
-        onClick={() => commit("B")}
-        aria-label={`Elegir B: ${question.optionB.text}`}
-      >
-        <div style={getHalfInnerStyle("B")}>
-          <div style={tagStyle}>B</div>
-          <div style={optionTextStyle}>{question.optionB.text}</div>
-        </div>
-      </button>
+        {/* Option B */}
+        {renderOption("B", question.optionB.text)}
 
-      <style>{`
-        /* Mobile: two equal halves, no gap */
+        <style>{`
         .split-stage-grid {
           grid-template-areas: "a" "b";
           grid-template-rows: 1fr 1fr;
@@ -215,50 +131,34 @@ export function SplitInteraction({
           gap: 0;
         }
 
-        /* Context pill: absolute, centered between the two halves */
         .split-ctx-wrapper {
           position: absolute;
           top: 50%;
           left: 50%;
           transform: translate(-50%, -50%);
-          z-index: 10;
+          z-index: 30;
           display: flex;
           justify-content: center;
           width: 88%;
-          pointer-events: none;
+          pointer-events-auto!;
+          select-none;
         }
 
-        /* Mobile inner card: A rounded on top, B rounded on bottom, flush where they meet */
-        .split-stage-grid > button:first-of-type > div {
-          border-radius: 20px 20px 0 0 !important;
-        }
-        .split-stage-grid > button:last-of-type > div {
-          border-radius: 0 0 20px 20px !important;
-        }
-
-        /* Desktop: context on top row, options side by side */
         @media (min-width: 720px) {
           .split-stage-grid {
-            grid-template-areas: "ctx ctx" "a b" !important;
-            grid-template-rows: auto 1fr !important;
-            grid-template-columns: 1fr 1fr !important;
-            gap: 16px !important;
+            grid-template-areas: "ctx ctx" "a b";
+            grid-template-rows: auto 1fr;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
           }
           .split-ctx-wrapper {
-            position: static !important;
-            transform: none !important;
-            grid-area: ctx !important;
-            display: flex !important;
-            justify-content: center !important;
-            width: 100% !important;
-            pointer-events: auto !important;
-          }
-          .split-stage-grid > button > div {
-            padding: 36px 28px !important;
-            border-radius: 28px !important;
+            position: static;
+            transform: none;
+            grid-area: ctx;
+            pointer-events: auto;
           }
         }
       `}</style>
-    </motion.div>
+      </motion.div>
   )
 }
