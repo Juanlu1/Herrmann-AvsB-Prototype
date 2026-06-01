@@ -47,30 +47,30 @@ export function ExplainerScreen({ onContinue }: ExplainerScreenProps) {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 my-6 md:my-8">
 
             {/* Slide demo Card */}
-            <div className="flex flex-col gap-3 p-4 rounded-lg bg-muted/30 border border-border">
+            <div className="flex flex-col gap-3 p-4 rounded-lg bg-card border border-border">
               <div className="flex items-center justify-between gap-3">
                 <span className="font-bold text-lg uppercase tracking-tight">Slide</span>
-                <span className="text-[10px] tracking-widest uppercase px-2 py-1 rounded-full bg-background/50 border border-border text-muted-foreground">Vertical</span>
+                <span className="text-[10px] tracking-widest uppercase px-2 py-1 rounded-full bg-muted border border-border text-muted-foreground">Vertical</span>
               </div>
-              <div className="relative h-32 rounded-(--radius-md) bg-background/50 flex items-center justify-center overflow-hidden">
+              <div className="relative h-32 rounded-(--radius-md) flex items-center justify-center overflow-hidden">
                 <div className="w-3/4 flex flex-col gap-2">
                   <div className="h-6 rounded-sm bg-muted border border-border flex items-center justify-center text-[10px] text-muted-foreground uppercase font-bold">opción A</div>
-                  <div className="h-10 rounded-sm bg-linear-to-br from-primary/20 to-accent/20 border border-primary/40 flex items-center justify-center text-primary text-[10px] font-black uppercase animate-bounce">situación</div>
+                  <div className="h-10 rounded-sm bg-muted border border-border flex items-center justify-center text-muted-foreground font-bold text-[10px] uppercase animate-bounce">situación</div>
                   <div className="h-6 rounded-sm bg-muted border border-border flex items-center justify-center text-[10px] text-muted-foreground uppercase font-bold">opción B</div>
                 </div>
               </div>
             </div>
 
             {/* Split demo Card */}
-            <div className="flex flex-col gap-3 p-4 rounded-lg bg-muted/30 border border-border">
+            <div className="flex flex-col gap-3 p-4 rounded-lg bg-card0 border border-border">
               <div className="flex items-center justify-between gap-3">
                 <span className="font-bold text-lg uppercase tracking-tight">Split</span>
-                <span className="text-[10px] tracking-widest uppercase px-2 py-1 rounded-full bg-background/50 border border-border text-muted-foreground">Horizontal</span>
+                <span className="text-[10px] tracking-widest uppercase px-2 py-1 rounded-full bg-muted border border-border text-muted-foreground">Horizontal</span>
               </div>
-              <div className="relative h-32 rounded-(--radius-md) bg-background/50 flex items-center justify-center p-4">
+              <div className="relative h-32 rounded-(--radius-md) flex items-center justify-center p-4">
                 <div className="grid grid-cols-2 gap-2 w-full h-full">
-                  <div className={`rounded-sm border flex items-center justify-center text-[10px] font-bold transition-all ${demoSplit === "A" ? 'bg-primary/20 border-primary text-primary' : 'bg-muted border-border text-muted-foreground'}`}>Opción A</div>
-                  <div className={`rounded-sm border flex items-center justify-center text-[10px] font-bold transition-all ${demoSplit === "B" ? 'bg-primary/20 border-primary text-primary' : 'bg-muted border-border text-muted-foreground'}`}>Opción B</div>
+                  <div className={`rounded-sm border flex items-center justify-center text-[10px] font-bold transition-all ${demoSplit === "A" ? 'bg-primary/75 border-primary text-primary-foreground' : 'bg-muted border-border text-muted-foreground'}`}>Opción A</div>
+                  <div className={`rounded-sm border flex items-center justify-center text-[10px] font-bold transition-all ${demoSplit === "B" ? 'bg-primary/75 border-primary text-primary-foreground' : 'bg-muted border-border text-muted-foreground'}`}>Opción B</div>
                 </div>
               </div>
             </div>

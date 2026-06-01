@@ -26,7 +26,8 @@ export function HerrmannTest() {
 
   // MINIJUEGOS
 
-  const defaultQuestionsUntilActivity = 5; // Una actividad cada 6 preguntas
+  // const defaultQuestionsUntilActivity = 5; // Una actividad cada 6 preguntas
+  const defaultQuestionsUntilActivity = 0;
   const [questionsUntilActivity, setQuestionsUntilActivity] = useState(defaultQuestionsUntilActivity)
 
   const activitiesList = ['puzzle', 'image', 'ball', 'balloon', 'blocks']
