@@ -122,7 +122,7 @@ export function ProgressSlide({ total, progreso, onComplete }: ProgressSlideProp
                 {/* Texto */}
                 <div className="max-w-45">
                     <p className="text-lg font-medium leading-tight">
-                        {progreso + 1} bloques de {total} completados
+                        {progreso + 1} preguntas de {total} respondidas
                     </p>
                 </div>
             </div>
