@@ -40,7 +40,7 @@ export const questions: Question[] = [
     id: 6,
     context: "Para entretenerme...",
     optionA: { text: "Resuelvo un acertijo o juego de lógica hasta llegar a la respuesta exacta", quadrant: 'A' },
-    optionB: { text: "Ayudo a un amigo a pensar qué hacer con un problema que le está comiendo la cabeza", quadrant: 'C' },
+    optionB: { text: "Ayudo a un amigo a organizarse sobre algo que quiere hacer pero no sabe cómo arrancar", quadrant: 'C' },
     screenType: 'comparative'
   },
   {
@@ -53,7 +53,7 @@ export const questions: Question[] = [
   {
     id: 8,
     context: "Cuando termina un día intenso...",
-    optionA: { text: "Le mando un audio a alguien contándole cómo me fue y escucho cómo le fue a esa persona", quadrant: 'C' },
+    optionA: { text: "Hablo con alguien de confianza: cuento algo del día y escucho cómo estuvo el de esa persona", quadrant: 'C' },
     optionB: { text: "Busco en internet quién tiene razón en alguna discusión que me quedó dando vueltas", quadrant: 'A' },
     screenType: 'ultra-fast'
   },
@@ -116,7 +116,7 @@ export const questions: Question[] = [
   {
     id: 17,
     context: "Para convencerme de hacer algo nuevo (comer sano, hacer ejercicio, etc.)...",
-    optionA: { text: "Leo historias de personas reales que lo hicieron y cómo les cambió la vida", quadrant: 'C' },
+    optionA: { text: "Leo experiencias de gente real que ya lo hizo y cómo les fue en el proceso", quadrant: 'C' },
     optionB: { text: "Veo estadísticas y estudios que demuestran que funciona", quadrant: 'A' },
     screenType: 'ultra-fast'
   },
@@ -180,7 +180,7 @@ export const questions: Question[] = [
     id: 26,
     context: "Para llevar un registro de cómo me fue en la semana...",
     optionA: { text: "Reviso cuánto dormí, cuánto caminé o cuánto comí", quadrant: 'A' },
-    optionB: { text: "Le cuento a alguien de confianza cómo me sentí", quadrant: 'C' },
+    optionB: { text: "Hablo con alguien de confianza y contamos cómo estuvo la semana de cada uno", quadrant: 'C' },
     screenType: 'ultra-fast'
   },
   {
@@ -200,7 +200,7 @@ export const questions: Question[] = [
   {
     id: 29,
     context: "Cuando noto que un amigo está raro...",
-    optionA: { text: "Le pregunto qué le pasa antes de que me lo cuente", quadrant: 'C' },
+    optionA: { text: "Le busco el momento y le pregunto si está bien o si hay algo que le esté pasando", quadrant: 'C' },
     optionB: { text: "Espero a que me lo cuente y lo ayudo a pensar qué hacer", quadrant: 'A' },
     screenType: 'ultra-fast'
   },
